@@ -30,6 +30,19 @@ class LearnosityXBlock(XBlock):
         help="Unique session identifier for Learnosity."
     )
 
+    # Additional fields for Studio parameters
+    parameter_one = String(
+        default="Default Parameter One",
+        scope=Scope.settings,
+        help="An example parameter for the XBlock."
+    )
+
+    parameter_two = String(
+        default="Default Parameter Two",
+        scope=Scope.settings,
+        help="Another example parameter for the XBlock."
+    )
+
     @staticmethod
     def workbench_scenarios():
         """
