@@ -1,0 +1,9 @@
+/* CSS for LearnosityXBlock */
+
+.learnosity_block .count {
+    font-weight: bold;
+}
+
+.learnosity_block p {
+    cursor: pointer;
+}

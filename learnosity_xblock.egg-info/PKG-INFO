@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: learnosity-xblock
+Version: 0.1
+Summary: learnosity XBlock
+License: UNKNOWN
+Requires-Dist: XBlock
+Requires-Dist: learnosity-sdk
