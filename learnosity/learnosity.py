@@ -1,11 +1,10 @@
-import json
 from jinja2 import Template
+import json
 from xblock.core import XBlock
 from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
-
 
 class LearnosityXBlock(XBlock):
     """
@@ -75,7 +74,7 @@ class LearnosityXBlock(XBlock):
                 <script src="https://items.learnosity.com/?latest-lts"></script>
                 <!-- Initiate Items API  -->
                 <script>
-                    var itemsApp = LearnosityItems.init({{ generated_request|safe }});
+                    var itemsApp = LearnosityItems.init({{ generated_request }});
                 </script>
             </body>
         </html>
@@ -83,27 +82,29 @@ class LearnosityXBlock(XBlock):
 
         # Render the template with the required variables
         rendered_html = template.render(
-            name='Standalone Items API Example',
-            generated_request=json.dumps(learnosity_init_options)
+            name='Standalone Items API Example', 
+            generated_request=learnosity_init_options
         )
 
         # Return the generated HTML response as a Fragment
         fragment = Fragment(rendered_html)
+        fragment.add_javascript(self._load_learnosity_script())
+        fragment.initialize_js('LearnosityXBlock')
         return fragment
 
-    def studio_view(self, context=None):
-        """
-        The view for editing parameters in Studio.
-        """
-        html = f"""
-        <form class="xblock-studio-view" method="POST">
+
+    def studio_view(self, context):
+        # Render a custom form for the admin interface
+        html = """
+        <form class="xblock-studio-view">
             <label for="parameter_one">Parameter One:</label>
-            <input type="text" name="parameter_one" value="{self.parameter_one}" />
+            <input type="text" name="parameter_one" value="{parameter_one}" />
             <label for="parameter_two">Parameter Two:</label>
-            <input type="text" name="parameter_two" value="{self.parameter_two}" />
+            <input type="text" name="parameter_two" value="{parameter_two}" />
             <button type="submit">Save</button>
         </form>
-        """
+        """.format(parameter_one=self.parameter_one, parameter_two=self.parameter_two)
+
         frag = Fragment(html)
         frag.add_javascript(self.resource_string("static/js/learnosity-studio.js"))
         frag.initialize_js('LearnosityXBlockStudio')
@@ -118,6 +119,8 @@ class LearnosityXBlock(XBlock):
         self.parameter_two = data.get('parameter_two', self.parameter_two)
         return {"result": "success"}
 
+
+
     def _generate_learnosity_init(self):
         """
         Generate Learnosity initialization options using the Learnosity SDK.
@@ -130,12 +133,12 @@ class LearnosityXBlock(XBlock):
 
         # Request parameters for the Items API
         request = {
-            'user_id': self.user_id,
-            'activity_template_id': self.activity_id,
-            'session_id': self.session_id,
+            'user_id': self.user_id,  # Dynamically generated user_id
+            'activity_template_id': 'test_mcq_with_mr',
+            'session_id': self.session_id,  # Dynamically generated session_id
             'type': 'submit_practice',
             'state': 'initial',
-            'activity_id': self.activity_id,
+            'activity_id': 'test_mcq_with_mr',
             'name': 'Items API Quickstart',
         }
 
@@ -145,3 +148,17 @@ class LearnosityXBlock(XBlock):
         init = Init(service='items', security=security, secret=secret, request=request)
         return init.generate()
 
+    def _load_learnosity_script(self):
+        """
+        Load the Learnosity Items API script.
+        """
+        return """
+        (function() {
+            var script = document.createElement('script');
+            script.src = 'https://items.learnosity.com/';
+            script.onload = function() {
+                LearnosityItems.init(learnosityInitOptions);
+            };
+            document.head.appendChild(script);
+        })();
+        """
