@@ -13,7 +13,7 @@ class LearnosityXBlock(XBlock):
 
     # Define necessary fields for the XBlock
     activity_id = String(
-        default="quickstart_examples_activity_template_001",
+        default="test_mcq_with_mr",
         scope=Scope.content,
         help="The Learnosity activity template ID."
     )
