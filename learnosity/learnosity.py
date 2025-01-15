@@ -79,6 +79,35 @@ class LearnosityXBlock(XBlock):
         fragment.initialize_js('LearnosityXBlock')
         return fragment
 
+
+    def studio_view(self, context):
+        # Render a custom form for the admin interface
+        html = """
+        <form class="xblock-studio-view">
+            <label for="parameter_one">Parameter One:</label>
+            <input type="text" name="parameter_one" value="{parameter_one}" />
+            <label for="parameter_two">Parameter Two:</label>
+            <input type="text" name="parameter_two" value="{parameter_two}" />
+            <button type="submit">Save</button>
+        </form>
+        """.format(parameter_one=self.parameter_one, parameter_two=self.parameter_two)
+
+        frag = Fragment(html)
+        frag.add_javascript(self.resource_string("static/js/learnosity-studio.js"))
+        frag.initialize_js('LearnosityXBlockStudio')
+        return frag
+
+    @XBlock.json_handler
+    def save_studio_parameters(self, data, suffix=''):
+        """
+        Handler to save parameters from the Studio view.
+        """
+        self.parameter_one = data.get('parameter_one', self.parameter_one)
+        self.parameter_two = data.get('parameter_two', self.parameter_two)
+        return {"result": "success"}
+
+
+
     def _generate_learnosity_init(self):
         """
         Generate Learnosity initialization options using the Learnosity SDK.
