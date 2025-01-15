@@ -1,5 +1,4 @@
 from jinja2 import Template
-import json
 from xblock.core import XBlock
 from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
