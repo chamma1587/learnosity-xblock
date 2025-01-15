@@ -1,3 +1,4 @@
+import json
 from jinja2 import Template
 from xblock.core import XBlock
 from xblock.fields import String, Scope
