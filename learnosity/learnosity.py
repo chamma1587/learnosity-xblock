@@ -85,22 +85,22 @@ class LearnosityXBlock(XBlock):
         """
         # Security details for the Learnosity API
         security = {
-            'consumer_key': 'yis0TYCu7U9V4o7M',
-            'domain': 'localhost',  # Replace with your actual domain
+            'consumer_key': 'bqbq2rmMdNzzKW4p',
+            'domain': 'local.openedx.io',  # Replace with your actual domain
         }
 
         # Request parameters for the Items API
         request = {
             'user_id': self.user_id,  # Dynamically generated user_id
-            'activity_template_id': 'quickstart_examples_activity_template_001',
+            'activity_template_id': 'test_mcq_with_mr',
             'session_id': self.session_id,  # Dynamically generated session_id
             'type': 'submit_practice',
             'state': 'initial',
-            'activity_id': 'quickstart_examples_activity_001',
+            'activity_id': 'test_mcq_with_mr',
             'name': 'Items API Quickstart',
         }
 
-        secret = '74c5fd430cf1242a527f6223aebd42d30464be22'
+        secret = 'Ml9QTwsa4Ajy3baPKMFKjPLuY35nY0rrQt5ZpIXn'
 
         # Generate the initialization options using Learnosity SDK
         init = Init(service='items', security=security, secret=secret, request=request)
