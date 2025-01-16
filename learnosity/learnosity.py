@@ -27,7 +27,7 @@ class LearnosityXBlock(XBlock):
 
     user_info = String(
         default='test',
-        scope=Scope.user_info,
+        scope=Scope.user_state,
         help="Unique user identifier for Learnosity."
     )
 
@@ -141,7 +141,7 @@ class LearnosityXBlock(XBlock):
         # Request parameters for the Items API
         request = {
             'user_id': self.user_id,
-            'activity_template_id': self.activity_name,
+            'activity_template_id': self.activity_id,
             'session_id': self.session_id,
             'type': 'submit_practice',
             'state': 'initial',
