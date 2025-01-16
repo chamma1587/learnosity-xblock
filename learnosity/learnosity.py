@@ -89,7 +89,7 @@ class LearnosityXBlock(XBlock):
 
         # Render the template with the required variables
         rendered_html = template.render(
-            name='Standalone Items API Example' + self.user_info, 
+            name='Standalone Items API Example 000000000 user info:' + self.user_info, 
             generated_request=learnosity_init_options
         )
 
@@ -141,11 +141,11 @@ class LearnosityXBlock(XBlock):
         # Request parameters for the Items API
         request = {
             'user_id': self.user_id,
-            'activity_template_id': 'test_mcq_with_mr',
+            'activity_template_id': self.activity_name,
             'session_id': self.session_id,
             'type': 'submit_practice',
             'state': 'initial',
-            'activity_id': 'test_mcq_with_mr',
+            'activity_id': self.activity_id
             'name': self.activity_name
         }
 
