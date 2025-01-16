@@ -75,7 +75,7 @@ class LearnosityXBlock(XBlock):
 
         # Render the template with the required variables
         rendered_html = template.render(
-            name='Learnosity Items'
+            name='Learnosity Items',
             generated_request=learnosity_init_options
         )
 
