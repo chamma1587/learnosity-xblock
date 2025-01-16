@@ -25,7 +25,7 @@ class LearnosityXBlock(XBlock):
         help="Unique user identifier for Learnosity."
     )
 
-      user_info = String(
+    user_info = String(
         default='test',
         scope=Scope.user_info,
         help="Unique user identifier for Learnosity."
