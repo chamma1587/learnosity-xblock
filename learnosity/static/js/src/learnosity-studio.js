@@ -8,13 +8,13 @@ function LearnosityXBlockStudio(runtime, element) {
         event.preventDefault();
 
         // Get input values from the form
-        const parameterOne = $('input[name="parameter_one"]', element).val();
-        const parameterTwo = $('input[name="parameter_two"]', element).val();
+        const activityId = $('input[name="activity_id"]', element).val();
+        const activityName = $('input[name="activity_name"]', element).val();
 
         // Prepare data to send to the XBlock handler
         const data = {
-            parameter_one: parameterOne,
-            parameter_two: parameterTwo,
+            activity_id: activityId,
+            activity_name: activityName,
         };
 
         // Save the parameters via the runtime's handler

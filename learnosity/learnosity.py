@@ -17,16 +17,17 @@ class LearnosityXBlock(XBlock):
     An XBlock that integrates Learnosity Items API to display assessments or questions.
     """
 
-    # Define necessary fields for the XBlock
-    activity_id = String(
-        default="test_mcq_with_mr",
-        scope=Scope.content,
-        help="The Learnosity activity template ID."
-    )
+
 
     user_id = String(
         default=Uuid.generate(),
         scope=Scope.user_state,
+        help="Unique user identifier for Learnosity."
+    )
+
+      user_info = String(
+        default='test',
+        scope=Scope.user_info,
         help="Unique user identifier for Learnosity."
     )
 
@@ -37,14 +38,14 @@ class LearnosityXBlock(XBlock):
     )
 
     # Additional fields for Studio parameters
-    parameter_one = String(
-        default="Default Parameter One",
+    activity_id = String(
+        default="test_mcq_with_mr",
         scope=Scope.settings,
         help="An example parameter for the XBlock."
     )
 
-    parameter_two = String(
-        default="Default Parameter Two",
+    activity_name = String(
+        default="Defaulto",
         scope=Scope.settings,
         help="Another example parameter for the XBlock."
     )
@@ -88,7 +89,7 @@ class LearnosityXBlock(XBlock):
 
         # Render the template with the required variables
         rendered_html = template.render(
-            name='Standalone Items API Example', 
+            name='Standalone Items API Example' + self.user_info, 
             generated_request=learnosity_init_options
         )
 
@@ -103,13 +104,13 @@ class LearnosityXBlock(XBlock):
         # Render a custom form for the admin interface
         html = """
         <form class="xblock-studio-view">
-            <label for="parameter_one">Parameter One:</label>
-            <input type="text" name="parameter_one" value="{parameter_one}" />
-            <label for="parameter_two">Parameter Two:</label>
-            <input type="text" name="parameter_two" value="{parameter_two}" />
+            <label for="activity_id">Activity Id:</label>
+            <input type="text" name="activity_id" value="{activity_id}" /><br/>
+            <label for="activity_name">activity_name:</label>
+            <input type="text" name="activity_name" value="{activity_name}" /><br/>
             <button type="submit">Save</button>
         </form>
-        """.format(parameter_one=self.parameter_one, parameter_two=self.parameter_two)
+        """.format(activity_id=self.activity_id, activity_name=self.activity_name)
 
         frag = Fragment(html)
         frag.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
@@ -121,8 +122,8 @@ class LearnosityXBlock(XBlock):
         """
         Handler to save parameters from the Studio view.
         """
-        self.parameter_one = data.get('parameter_one', self.parameter_one)
-        self.parameter_two = data.get('parameter_two', self.parameter_two)
+        self.activity_id = data.get('activity_id', self.activity_id)
+        self.activity_name = data.get('activity_name', self.activity_name)
         return {"result": "success"}
 
 
@@ -139,13 +140,13 @@ class LearnosityXBlock(XBlock):
 
         # Request parameters for the Items API
         request = {
-            'user_id': self.user_id,  # Dynamically generated user_id
+            'user_id': self.user_id,
             'activity_template_id': 'test_mcq_with_mr',
-            'session_id': self.session_id,  # Dynamically generated session_id
+            'session_id': self.session_id,
             'type': 'submit_practice',
             'state': 'initial',
             'activity_id': 'test_mcq_with_mr',
-            'name': 'Items API Quickstart',
+            'name': self.activity_name
         }
 
         secret = 'Ml9QTwsa4Ajy3baPKMFKjPLuY35nY0rrQt5ZpIXn'
@@ -156,7 +157,7 @@ class LearnosityXBlock(XBlock):
 
     def _load_learnosity_script(self):
         """
-        Load the Learnosity Items API script.
+        Load the Learnosity Items API script. {self.user_id}
         """
         return """
         (function() {
