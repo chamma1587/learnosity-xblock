@@ -112,7 +112,7 @@ class LearnosityXBlock(XBlock):
         """.format(parameter_one=self.parameter_one, parameter_two=self.parameter_two)
 
         frag = Fragment(html)
-        frag.add_javascript(RESOURCE_LOADER.load_unicode('static/js/learnosity-studio.js'))
+        frag.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
         frag.initialize_js('LearnosityXBlockStudio')
         return frag
 
