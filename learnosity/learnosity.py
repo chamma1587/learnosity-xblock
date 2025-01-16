@@ -1,12 +1,16 @@
-import pkg_resources
 from jinja2 import Template
 from xblock.core import XBlock
 from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
-from xblockutils.resources import ResourceLoader
-from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
+
+try:
+    from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
+except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
+    from xblockutils.resources import ResourceLoader
+
+RESOURCE_LOADER = ResourceLoader(__name__)
 
 class LearnosityXBlock(XBlock):
     """
@@ -55,11 +59,6 @@ class LearnosityXBlock(XBlock):
             """<learnosity activity_id="example_activity_id"/>"""
             )
         ]
-
-    def resource_string(self, path):
-        """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode("utf8")
 
     def student_view(self, context=None):
         """
@@ -113,7 +112,7 @@ class LearnosityXBlock(XBlock):
         """.format(parameter_one=self.parameter_one, parameter_two=self.parameter_two)
 
         frag = Fragment(html)
-        frag.add_javascript(self.resource_string("static/js/learnosity-studio.js"))
+        fragment.add_javascript(RESOURCE_LOADER.load_unicode('static/js/learnosity-studio.js'))
         frag.initialize_js('LearnosityXBlockStudio')
         return frag
 
