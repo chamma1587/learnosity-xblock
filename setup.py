@@ -24,9 +24,9 @@ def package_data(pkg, roots):
 
 setup(
     name='learnosity-xblock',
-    version='0.2',
-    description='learnosity XBlock',   # TODO: write a better description.
-    license='UNKNOWN',          # TODO: choose a license: 'AGPL v3' and 'Apache 2.0' are popular.
+    version='1.0',
+    description='learnosity XBlock', 
+    license='UNKNOWN', 
     packages=[
         'learnosity',
     ],

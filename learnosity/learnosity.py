@@ -17,8 +17,6 @@ class LearnosityXBlock(XBlock):
     An XBlock that integrates Learnosity Items API to display assessments or questions.
     """
 
-
-
     user_id = String(
         default=Uuid.generate(),
         scope=Scope.user_state,
@@ -41,25 +39,14 @@ class LearnosityXBlock(XBlock):
     activity_id = String(
         default="test_mcq_with_mr",
         scope=Scope.settings,
-        help="An example parameter for the XBlock."
+        help="Activity id"
     )
 
     activity_name = String(
-        default="Defaulto",
+        default="Quiz Learnosity",
         scope=Scope.settings,
-        help="Another example parameter for the XBlock."
-    )
-
-    @staticmethod
-    def workbench_scenarios():
-        """
-        A scenario for testing the Learnosity in the Workbench.
-        """
-        return [
-            ("Learnosity",
-            """<learnosity activity_id="example_activity_id"/>"""
-            )
-        ]
+        help="Activity name"
+    )    
 
     def student_view(self, context=None):
         """
@@ -74,8 +61,7 @@ class LearnosityXBlock(XBlock):
         <!DOCTYPE html>
         <html>
             <body>
-                <h1>{{ name }}</h1>
-                <!-- Items API will render the assessment app into this div. -->
+                <h1>{{ self.activity_name }}</h1>
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -89,7 +75,7 @@ class LearnosityXBlock(XBlock):
 
         # Render the template with the required variables
         rendered_html = template.render(
-            name='Standalone Items API Example 000000000 user info:' + self.user_info, 
+            name='Learnosity Items'
             generated_request=learnosity_init_options
         )
 
@@ -101,8 +87,7 @@ class LearnosityXBlock(XBlock):
 
 
     def studio_view(self, context):
-        # Render a custom form for the admin interface
-        current_data = self.student_info
+        # Render a custom form for the admin interface       
         html = """
         <form class="xblock-studio-view">
             <label for="activity_id">Activity Id:</label>
