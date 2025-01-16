@@ -1,3 +1,4 @@
+import pkg_resources
 from jinja2 import Template
 from xblock.core import XBlock
 from xblock.fields import String, Scope
@@ -54,6 +55,11 @@ class LearnosityXBlock(XBlock):
             """<learnosity activity_id="example_activity_id"/>"""
             )
         ]
+
+    def resource_string(self, path):
+        """Handy helper for getting resources from our kit."""
+        data = pkg_resources.resource_string(__name__, path)
+        return data.decode("utf8")
 
     def student_view(self, context=None):
         """
