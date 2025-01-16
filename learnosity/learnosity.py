@@ -145,7 +145,7 @@ class LearnosityXBlock(XBlock):
             'session_id': self.session_id,
             'type': 'submit_practice',
             'state': 'initial',
-            'activity_id': self.activity_id
+            'activity_id': self.activity_id,
             'name': self.activity_name
         }
 
