@@ -61,13 +61,15 @@ class LearnosityXBlock(XBlock):
 
         user_info = context.get('user_id')
 
+        print("Context passed to student_view:", context)
+
         # Define the page HTML as a Jinja2 template
         template = Template("""
         <!DOCTYPE html>
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>             
-                <h3>user_id: {{ username }}</h3>
+                <h3>user_id: {{ user_info }}</h3>
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
