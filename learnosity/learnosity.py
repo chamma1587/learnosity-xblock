@@ -4,6 +4,7 @@ from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
+from xblock.runtime import UserService
 
 try:
     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
@@ -11,6 +12,7 @@ except ModuleNotFoundError:  # For backward compatibility with releases older th
     from xblockutils.resources import ResourceLoader
 
 RESOURCE_LOADER = ResourceLoader(__name__)
+
 
 class LearnosityXBlock(XBlock):
     """
@@ -55,10 +57,7 @@ class LearnosityXBlock(XBlock):
         Renders the Learnosity assessment using the Items API.
         """
         # Generate Learnosity initialization options
-        learnosity_init_options = self._generate_learnosity_init()
-        
-        context = context or {}
-
+        learnosity_init_options = self._generate_learnosity_init()      
 
         print("Context passed to student_view:", context)
         print("Run Time student_view:", self.get_user_info())
