@@ -57,7 +57,6 @@ class LearnosityXBlock(XBlock):
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()
         user = self.runtime.get_real_user(self.runtime.anonymous_student_id)
-        group_ids = user.groups.values_list('id', flat=True)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
