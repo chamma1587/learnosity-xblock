@@ -4,6 +4,7 @@ from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
+from django.contrib.auth import get_user_model
 
 try:
     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
@@ -11,7 +12,7 @@ except ModuleNotFoundError:  # For backward compatibility with releases older th
     from xblockutils.resources import ResourceLoader
 
 RESOURCE_LOADER = ResourceLoader(__name__)
-
+User = get_user_model()
 
 class LearnosityXBlock(XBlock):
     """
@@ -58,8 +59,7 @@ class LearnosityXBlock(XBlock):
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()      
 
-        available_services = dir(self.runtime)
-        print("Available services:", available_services)
+        print("Available services:", User())
 
         user_service = self.runtime.service(self, 'user')
         if user_service:
@@ -169,18 +169,7 @@ class LearnosityXBlock(XBlock):
             document.head.appendChild(script);
         })();
         """
-
-    def get_user_info(self):
-        user_service = self.runtime.service(self, 'user')
-        if user_service:
-            user = user_service.get_current_user()
-            return {
-                "user_id": user.user_id,
-                "username": user.username,
-                "email": user.email,
-            }
-        return None
-
+    
     @staticmethod
     def workbench_scenarios():
         """
