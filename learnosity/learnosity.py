@@ -58,8 +58,15 @@ class LearnosityXBlock(XBlock):
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()      
 
-        print("Context passed to student_view:", context)
-        print("Run Time student_view:", self.get_user_info())
+        available_services = dir(self.runtime)
+        print("Available services:", available_services)
+
+        user_service = self.runtime.service(self, 'user')
+        if user_service:
+            user = user_service.get_current_user()
+            username = user.username
+        else:
+            username = "Guest"
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -67,6 +74,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>           
+                <h1>{{ username }}</h1>           
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
