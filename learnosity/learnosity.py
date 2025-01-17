@@ -56,7 +56,9 @@ class LearnosityXBlock(XBlock):
         """
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()
-        user_id = self.runtime.anonymous_student_id
+        
+        user_info = self.get_user_info()
+        username = user_info['username'] if user_info else "Guest"
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -64,7 +66,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>             
-                <h3>user_id: {{ user_id }}</h3>
+                <h3>user_id: {{ username }}</h3>
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -90,7 +92,8 @@ class LearnosityXBlock(XBlock):
 
 
     def studio_view(self, context):
-        # Render a custom form for the admin interface       
+        # Render a custom form for the admin interface           
+
         html = """
         <form class="xblock-studio-view">
             <label for="activity_id">Activity Id:</label>
@@ -158,3 +161,14 @@ class LearnosityXBlock(XBlock):
             document.head.appendChild(script);
         })();
         """
+
+    def get_user_info(self):
+        user_service = self.runtime.service(self, 'user')
+        if user_service:
+            user = user_service.get_current_user()
+            return {
+                "user_id": user.user_id,
+                "username": user.username,
+                "email": user.email,
+            }
+        return None
