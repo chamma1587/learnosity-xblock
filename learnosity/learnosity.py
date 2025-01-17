@@ -11,7 +11,6 @@ except ModuleNotFoundError:  # For backward compatibility with releases older th
     from xblockutils.resources import ResourceLoader
 
 RESOURCE_LOADER = ResourceLoader(__name__)
-User = get_user_model()
 
 class LearnosityXBlock(XBlock):
     """
