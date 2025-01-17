@@ -4,7 +4,6 @@ from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
-from django.contrib.auth import get_user_model
 
 try:
     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
@@ -57,9 +56,7 @@ class LearnosityXBlock(XBlock):
         Renders the Learnosity assessment using the Items API.
         """
         # Generate Learnosity initialization options
-        learnosity_init_options = self._generate_learnosity_init()      
-
-        print("Available services:", User())       
+        learnosity_init_options = self._generate_learnosity_init()     
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
