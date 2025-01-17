@@ -59,18 +59,16 @@ class LearnosityXBlock(XBlock):
         
         context = context or {}
 
-        user_info = context.get('username')
 
         print("Context passed to student_view:", context)
-        print("Run Time student_view:", self.runtime.service(self, 'user'))
+        print("Run Time student_view:", self.get_user_info())
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
         <!DOCTYPE html>
         <html>
             <body>
-                <h1>{{ self.activity_name }}</h1>             
-                <h3>user_id: {{ user_info }}</h3>
+                <h1>{{ self.activity_name }}</h1>           
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -176,3 +174,10 @@ class LearnosityXBlock(XBlock):
                 "email": user.email,
             }
         return None
+
+    @staticmethod
+    def workbench_scenarios():
+        """
+        A canned scenario for display in the workbench.
+        """
+        return [("Learosity", "<vertical_demo><learnosity/></vertical_demo>")]
