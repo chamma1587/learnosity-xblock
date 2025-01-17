@@ -57,8 +57,9 @@ class LearnosityXBlock(XBlock):
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()
         
-        user_info = self.get_user_info()
-        username = user_info['username'] if user_info else "Guest"
+        context = context or {}
+
+        user_info = context.get('user_id')
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
