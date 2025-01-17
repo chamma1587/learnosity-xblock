@@ -57,7 +57,8 @@ class LearnosityXBlock(XBlock):
         """
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()
-        open_edx_user_info = self.get_user_details()
+        user = self.runtime.get_real_user(self.runtime.anonymous_student_id)
+        group_ids = user.groups.values_list('id', flat=True)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -65,7 +66,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>
-                <h3>{{ open_edx_user_info['id'] }}</h3>
+                <h3>{{ user }}</h3>
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -159,14 +160,3 @@ class LearnosityXBlock(XBlock):
             document.head.appendChild(script);
         })();
         """
-
-    def get_user_details(self):
-        user = self.runtime.user
-        if user and user.id:
-            django_user = User.objects.get(id=user.id)
-            return {
-                "username": django_user.username,
-                "email": django_user.email,
-                "first_name": django_user.first_name,
-                "last_name": django_user.last_name
-            }
