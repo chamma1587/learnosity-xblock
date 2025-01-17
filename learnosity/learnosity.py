@@ -4,7 +4,6 @@ from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
-from xblock.runtime import UserService
 
 try:
     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
