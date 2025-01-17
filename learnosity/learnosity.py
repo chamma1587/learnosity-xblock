@@ -59,9 +59,10 @@ class LearnosityXBlock(XBlock):
         
         context = context or {}
 
-        user_info = context.get('user_id')
+        user_info = context.get('username')
 
         print("Context passed to student_view:", context)
+        print("Run Time student_view:", self.runtime.service(self, 'user'))
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
