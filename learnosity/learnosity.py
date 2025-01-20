@@ -68,7 +68,7 @@ class LearnosityXBlock(XBlock):
                 userId = self.runtime.user_id  # Adjust if your runtime provides the actual username
                 courseId = str(self.scope_ids.usage_id.course_key)  # Extract the course ID
 
-                print('ddfdfdfdfdf', username, courseId)
+                print('ddfdfdfdfdf', userId, courseId)
 
             else:
                 raise RuntimeError("User service is not available.")
