@@ -5,29 +5,29 @@ from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
 
-# try:
-#     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
-# except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
-#     from xblockutils.resources import ResourceLoader
+try:
+    from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
+except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
+    from xblockutils.resources import ResourceLoader
 
-# RESOURCE_LOADER = ResourceLoader(__name__)
+RESOURCE_LOADER = ResourceLoader(__name__)
 
 class LearnosityXBlock(XBlock):
     """
     An XBlock that integrates Learnosity Items API to display assessments or questions.
     """
 
-    # user_id = String(
-    #     default=Uuid.generate(),
-    #     scope=Scope.user_state,
-    #     help="Unique user identifier for Learnosity."
-    # )   
+    user_id = String(
+        default=Uuid.generate(),
+        scope=Scope.user_state,
+        help="Unique user identifier for Learnosity."
+    )   
 
-    # session_id = String(
-    #     default=Uuid.generate(),
-    #     scope=Scope.user_state,
-    #     help="Unique session identifier for Learnosity."
-    # )
+    session_id = String(
+        default=Uuid.generate(),
+        scope=Scope.user_state,
+        help="Unique session identifier for Learnosity."
+    )
 
     # Additional fields for Studio parameters
     activity_id = String(
@@ -82,32 +82,32 @@ class LearnosityXBlock(XBlock):
         return fragment
 
 
-    # def studio_view(self, context):
-    #     # Render a custom form for the admin interface           
+    def studio_view(self, context):
+        # Render a custom form for the admin interface           
 
-    #     html = """
-    #     <form class="xblock-studio-view">
-    #         <label for="activity_id">Activity Id:</label>
-    #         <input type="text" name="activity_id" value="{activity_id}" /><br/>
-    #         <label for="activity_name">activity_name:</label>
-    #         <input type="text" name="activity_name" value="{activity_name}" /><br/>
-    #         <button type="submit">Save</button>
-    #     </form>
-    #     """.format(activity_id=self.activity_id, activity_name=self.activity_name)
+        html = """
+        <form class="xblock-studio-view">
+            <label for="activity_id">Activity Id:</label>
+            <input type="text" name="activity_id" value="{activity_id}" /><br/>
+            <label for="activity_name">activity_name:</label>
+            <input type="text" name="activity_name" value="{activity_name}" /><br/>
+            <button type="submit">Save</button>
+        </form>
+        """.format(activity_id=self.activity_id, activity_name=self.activity_name)
 
-    #     frag = Fragment(html)
-    #     frag.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
-    #     frag.initialize_js('LearnosityXBlockStudio')
-    #     return frag
+        frag = Fragment(html)
+        frag.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
+        frag.initialize_js('LearnosityXBlockStudio')
+        return frag
 
-    # @XBlock.json_handler
-    # def save_studio_parameters(self, data, suffix=''):
-    #     """
-    #     Handler to save parameters from the Studio view.
-    #     """
-    #     self.activity_id = data.get('activity_id', self.activity_id)
-    #     self.activity_name = data.get('activity_name', self.activity_name)
-    #     return {"result": "success"}
+    @XBlock.json_handler
+    def save_studio_parameters(self, data, suffix=''):
+        """
+        Handler to save parameters from the Studio view.
+        """
+        self.activity_id = data.get('activity_id', self.activity_id)
+        self.activity_name = data.get('activity_name', self.activity_name)
+        return {"result": "success"}
 
 
 
@@ -123,9 +123,9 @@ class LearnosityXBlock(XBlock):
 
         # Request parameters for the Items API
         request = {
-            'user_id':'gghh44411ghgh',
+            'user_id': self.user_id,
             'activity_template_id': self.activity_id,
-            'session_id': '545ss5sdsd354sds',
+            'session_id': self.session_id,
             'type': 'submit_practice',
             'state': 'initial',
             'activity_id': self.activity_id,
@@ -152,10 +152,3 @@ class LearnosityXBlock(XBlock):
             document.head.appendChild(script);
         })();
         """
-    
-    @staticmethod
-    def workbench_scenarios():
-        """
-        A canned scenario for display in the workbench.
-        """
-        return [("Learosity", "<vertical_demo><learnosity/></vertical_demo>")]
