@@ -17,17 +17,17 @@ class LearnosityXBlock(XBlock):
     An XBlock that integrates Learnosity Items API to display assessments or questions.
     """
 
-    user_id = String(
-        default=Uuid.generate(),
-        scope=Scope.user_state,
-        help="Unique user identifier for Learnosity."
-    )   
+    # user_id = String(
+    #     default=Uuid.generate(),
+    #     scope=Scope.user_state,
+    #     help="Unique user identifier for Learnosity."
+    # )   
 
-    session_id = String(
-        default=Uuid.generate(),
-        scope=Scope.user_state,
-        help="Unique session identifier for Learnosity."
-    )
+    # session_id = String(
+    #     default=Uuid.generate(),
+    #     scope=Scope.user_state,
+    #     help="Unique session identifier for Learnosity."
+    # )
 
     # Additional fields for Studio parameters
     activity_id = String(
@@ -123,9 +123,9 @@ class LearnosityXBlock(XBlock):
 
         # Request parameters for the Items API
         request = {
-            'user_id': self.user_id,
+            'user_id':'gghh44411ghgh',
             'activity_template_id': self.activity_id,
-            'session_id': self.session_id,
+            'session_id': '545ss5sdsd354sds',
             'type': 'submit_practice',
             'state': 'initial',
             'activity_id': self.activity_id,
