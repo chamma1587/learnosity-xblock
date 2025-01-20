@@ -60,14 +60,9 @@ class LearnosityXBlock(XBlock):
         """
         student_id = str(self.student_id)  
         course_id = str(self.course_id)  
-        username = str(self.get_username)  
 
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()          
-      
-        print('selfdataßß', student_id)
-        print('selfdataßßsssss', course_id)
-        print('selfdataßßsssssuser', username)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -75,7 +70,6 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ name }}</h1>    
-                <h1>{{ username }}</h1>    
                 <h1>Student Data: {{ studentId }} - {{courseId}}</h1>    
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
@@ -92,8 +86,7 @@ class LearnosityXBlock(XBlock):
         rendered_html = template.render(
             name='Learnosity Items',
             studentId=student_id,
-            courseId=course_id,
-            username=username,
+            courseId=course_id,           
             generated_request=learnosity_init_options
         )
 
@@ -110,20 +103,6 @@ class LearnosityXBlock(XBlock):
     @property
     def course_id(self):
         return str(self.scope_ids.usage_id)
-
-
-    def get_username(self):
-        try:
-            # Access the User Service
-            user_service = self.runtime.service(self, 'user')
-            if user_service:
-                # Retrieve the username using the user_id
-                username = user_service.get_username(self.scope_ids.user_id)
-                return username
-            else:
-                raise RuntimeError("User service is not available.")
-        except Exception as e:
-            return f"Error retrieving username: {e}"
 
 
     def studio_view(self, context):
