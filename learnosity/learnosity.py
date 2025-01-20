@@ -61,9 +61,9 @@ class LearnosityXBlock(XBlock):
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()     
 
-        user_id=self.user_id
+        userId=self.student_id
 
-        print('selfdataßß', user_id)
+        print('selfdataßß', student_id)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -71,7 +71,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>    
-                <h1>Student Data: {{ user_id }}</h1>    
+                <h1>Student Data: {{ userId }}</h1>    
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -96,7 +96,7 @@ class LearnosityXBlock(XBlock):
         return fragment
 
     @property
-    def user_id(self):
+    def student_id(self):
         """
         Returns the opaque anonymous_student_id for the current user.
         """
@@ -107,6 +107,8 @@ class LearnosityXBlock(XBlock):
                 # Retrieve the username and course_id
                 username = self.runtime.user_id  # Adjust if your runtime provides the actual username
                 course_id = str(self.scope_ids.usage_id.course_key)  # Extract the course ID
+
+                 print(f"Username: {username}, Course ID: {course_id}")
                 
                 # Generate the anonymous user ID
                 return user_service.get_anonymous_user_id(username=username, course_id=course_id)
