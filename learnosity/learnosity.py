@@ -116,7 +116,7 @@ class LearnosityXBlock(XBlock):
         return """
         (function() {
             var script = document.createElement('script');
-            script.src = 'https://items.learnosity.com/';
+            script.src = 'https://items.learnosity.com/?latest-lts';
             script.onload = function() {
                 LearnosityItems.init(learnosityInitOptions);
             };
