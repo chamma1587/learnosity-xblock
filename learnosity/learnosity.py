@@ -100,7 +100,7 @@ class LearnosityXBlock(XBlock):
         """
         Returns the opaque anonymous_student_id for the current user.
         """
-       try:
+        try:
             # Access the user service
             user_service = self.runtime.service(self, 'user')
             if user_service:
