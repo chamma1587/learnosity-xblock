@@ -61,7 +61,19 @@ class LearnosityXBlock(XBlock):
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()     
 
-        userId=self.student_id
+        try:
+            user_service = self.runtime.service(self, 'user')
+            if user_service:
+                # Retrieve the username and course_id
+                userId = self.runtime.user_id  # Adjust if your runtime provides the actual username
+                courseId = str(self.scope_ids.usage_id.course_key)  # Extract the course ID
+
+                print('ddfdfdfdfdf', username, courseId)
+
+            else:
+                raise RuntimeError("User service is not available.")
+        except NoSuchServiceError:
+            raise RuntimeError("The 'user' service was not provided.")
 
         print('selfdataßß', userId)
 
