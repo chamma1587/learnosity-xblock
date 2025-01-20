@@ -44,41 +44,41 @@ class LearnosityXBlock(XBlock):
         help="Name of the Learnosity activity."
     )
 
-    def student_view(self, context=None):
-        """
-        The primary view of the XBlock, shown to students.
-        Renders the Learnosity assessment using the Items API.
-        """
-        # Generate Learnosity initialization options
-        learnosity_init_options = self._generate_learnosity_init()
+    # def student_view(self, context=None):
+    #     """
+    #     The primary view of the XBlock, shown to students.
+    #     Renders the Learnosity assessment using the Items API.
+    #     """
+    #     # Generate Learnosity initialization options
+    #     learnosity_init_options = self._generate_learnosity_init()
 
-        # HTML template for student view
-        template = Template("""
-        <!DOCTYPE html>
-        <html>
-            <body>
-                <h1>{{ activity_name }}</h1>
-                <div id="learnosity_assess"></div>
-                <!-- Load the Items API library -->
-                <script src="https://items.learnosity.com/"></script>
-                <!-- Initiate Items API -->
-                <script>
-                    var learnosityInitOptions = {{ generated_request | safe }};
-                    var itemsApp = LearnosityItems.init(learnosityInitOptions);
-                </script>
-            </body>
-        </html>
-        """)
+    #     # HTML template for student view
+    #     template = Template("""
+    #     <!DOCTYPE html>
+    #     <html>
+    #         <body>
+    #             <h1>{{ activity_name }}</h1>
+    #             <div id="learnosity_assess"></div>
+    #             <!-- Load the Items API library -->
+    #             <script src="https://items.learnosity.com/"></script>
+    #             <!-- Initiate Items API -->
+    #             <script>
+    #                 var learnosityInitOptions = {{ generated_request | safe }};
+    #                 var itemsApp = LearnosityItems.init(learnosityInitOptions);
+    #             </script>
+    #         </body>
+    #     </html>
+    #     """)
 
-        # Render the template with required variables
-        rendered_html = template.render(
-            activity_name=self.activity_name,
-            generated_request=learnosity_init_options
-        )
+    #     # Render the template with required variables
+    #     rendered_html = template.render(
+    #         activity_name=self.activity_name,
+    #         generated_request=learnosity_init_options
+    #     )
 
-        # Return the rendered HTML as a Fragment
-        fragment = Fragment(rendered_html)
-        return fragment
+    #     # Return the rendered HTML as a Fragment
+    #     fragment = Fragment(rendered_html)
+    #     return fragment
 
     # def studio_view(self, context=None):
     #     """
@@ -112,33 +112,33 @@ class LearnosityXBlock(XBlock):
     #     self.activity_name = data.get('activity_name', self.activity_name)
     #     return {"result": "success"}
 
-    def _generate_learnosity_init(self):
-        """
-        Generate Learnosity initialization options using the Learnosity SDK.
-        """
-        # Security details (replace with environment variables in production)
-        security = {
-            'consumer_key': 'bqbq2rmMdNzzKW4p',  # Replace with env variable
-            'domain': 'local.openedx.io',        # Replace with your actual domain
-        }
+    # def _generate_learnosity_init(self):
+    #     """
+    #     Generate Learnosity initialization options using the Learnosity SDK.
+    #     """
+    #     # Security details (replace with environment variables in production)
+    #     security = {
+    #         'consumer_key': 'bqbq2rmMdNzzKW4p',  # Replace with env variable
+    #         'domain': 'local.openedx.io',        # Replace with your actual domain
+    #     }
 
-        # Request parameters for Learnosity Items API
-        request = {
-            'user_id': self.user_id,
-            'activity_template_id': self.activity_id,
-            'session_id': self.session_id,
-            'type': 'submit_practice',
-            'state': 'initial',
-            'activity_id': self.activity_id,
-            'name': self.activity_name
-        }
+    #     # Request parameters for Learnosity Items API
+    #     request = {
+    #         'user_id': self.user_id,
+    #         'activity_template_id': self.activity_id,
+    #         'session_id': self.session_id,
+    #         'type': 'submit_practice',
+    #         'state': 'initial',
+    #         'activity_id': self.activity_id,
+    #         'name': self.activity_name
+    #     }
 
-        # Secret key (replace with environment variable in production)
-        secret = 'Ml9QTwsa4Ajy3baPKMFKjPLuY35nY0rrQt5ZpIXn'
+    #     # Secret key (replace with environment variable in production)
+    #     secret = 'Ml9QTwsa4Ajy3baPKMFKjPLuY35nY0rrQt5ZpIXn'
 
-        # Generate the initialization string
-        init = Init(service='items', security=security, secret=secret, request=request)
-        return init.generate()
+    #     # Generate the initialization string
+    #     init = Init(service='items', security=security, secret=secret, request=request)
+    #     return init.generate()
 
     @staticmethod
     def workbench_scenarios():

@@ -24,7 +24,7 @@ def package_data(pkg, roots):
 
 setup(
     name='learnosity-xblock',
-    version='1.0',
+    version='0.1',
     description='learnosity XBlock', 
     license='UNKNOWN', 
     packages=[
