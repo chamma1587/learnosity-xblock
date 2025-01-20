@@ -91,6 +91,7 @@ class LearnosityXBlock(XBlock):
     def studio_view(self, context):
         # Render a custom form for the admin interface           
 
+        print('user_id_data', self.user_id)
         html = """
         <form class="xblock-studio-view">
             <label for="activity_id">Activity Id:</label>
