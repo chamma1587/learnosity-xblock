@@ -28,7 +28,7 @@ setup(
     description='learnosity XBlock', 
     license='UNKNOWN', 
     packages=[
-        'learnosity',
+        'learnosityx',
     ],
     install_requires=[
         'XBlock',
@@ -36,8 +36,8 @@ setup(
     ],
     entry_points={
         'xblock.v1': [
-            'learnosity = learnosity:LearnosityXBlock',
+            'learnosityx = learnosity:LearnosityXBlock',
         ]
     },
-    package_data=package_data("learnosity", ["static", "public"]),
+    package_data=package_data("learnosityx", ["static", "public"]),
 )
