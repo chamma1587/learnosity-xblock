@@ -21,13 +21,7 @@ class LearnosityXBlock(XBlock):
         default=Uuid.generate(),
         scope=Scope.user_state,
         help="Unique user identifier for Learnosity."
-    )
-
-    user_info = String(
-        default='test',
-        scope=Scope.user_state,
-        help="Unique user identifier for Learnosity."
-    )
+    )   
 
     session_id = String(
         default=Uuid.generate(),
