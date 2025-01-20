@@ -101,7 +101,7 @@ class LearnosityXBlock(XBlock):
         return frag
 
     @XBlock.json_handler
-    def save_studio_parameters(self, data, suffix=''):
+    def studio_submit(self, data, suffix=''):
         """
         Handler to save parameters from the Studio view.
         """
