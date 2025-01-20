@@ -13,6 +13,7 @@ except ModuleNotFoundError:  # For backward compatibility with releases older th
 
 RESOURCE_LOADER = ResourceLoader(__name__)
 
+@XBlock.needs('user')
 class LearnosityXBlock(XBlock):
     """
     An XBlock that integrates Learnosity Items API to display assessments or questions.
