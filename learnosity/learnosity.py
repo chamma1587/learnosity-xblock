@@ -152,3 +152,14 @@ class LearnosityXBlock(XBlock):
             document.head.appendChild(script);
         })();
         """
+
+    @staticmethod
+    def workbench_scenarios():
+        """
+        A scenario for testing the Learnosity in the Workbench.
+        """
+        return [
+            ("Learnosity",
+            """<learnosity activity_id="example_activity_id"/>"""
+            )
+        ]
