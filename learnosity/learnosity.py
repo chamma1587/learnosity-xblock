@@ -4,6 +4,7 @@ from xblock.fields import String, Scope
 from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
+from xblock.runtime import KvsFieldData
 
 try:
     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
@@ -50,6 +51,9 @@ class LearnosityXBlock(XBlock):
     
 
     def student_view(self, context=None):
+
+        student_data = KvsFieldData()
+        print('student_data', student_data)
         """
         The primary view of the XBlock, shown to students.
         Renders the Learnosity assessment using the Items API.
