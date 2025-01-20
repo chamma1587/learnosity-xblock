@@ -70,8 +70,8 @@ class LearnosityXBlock(XBlock):
         <!DOCTYPE html>
         <html>
             <body>
-                <h1>{{ self.activity_name }}</h1>    
-                <h1>Student Data: {{ student_id }} xxxx</h1>    
+                <h1>{{ name }}</h1>    
+                <h1>Student Data: {{ studentId }} xxxx</h1>    
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -86,6 +86,7 @@ class LearnosityXBlock(XBlock):
         # Render the template with the required variables
         rendered_html = template.render(
             name='Learnosity Items',
+            studentId=student_id,
             generated_request=learnosity_init_options
         )
 
