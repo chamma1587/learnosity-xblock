@@ -36,7 +36,7 @@ setup(
     ],
     entry_points={
         'xblock.v1': [
-            'learnosity = learnosity:LearnosityXBlock',
+            'learnosity001 = learnosity:LearnosityXBlock',
         ]
     },
     package_data=package_data("learnosity", ["static", "public"]),
