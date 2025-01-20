@@ -5,12 +5,12 @@ from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
 
-try:
-    from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
-except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
-    from xblockutils.resources import ResourceLoader
+# try:
+#     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
+# except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
+#     from xblockutils.resources import ResourceLoader
 
-RESOURCE_LOADER = ResourceLoader(__name__)
+# RESOURCE_LOADER = ResourceLoader(__name__)
 
 class LearnosityXBlock(XBlock):
     """
