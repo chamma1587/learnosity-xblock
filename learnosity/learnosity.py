@@ -58,10 +58,11 @@ class LearnosityXBlock(XBlock):
         The primary view of the XBlock, shown to students.
         Renders the Learnosity assessment using the Items API.
         """
-        # Generate Learnosity initialization options
-        learnosity_init_options = self._generate_learnosity_init()          
         student_id = str(self.student_id)  
 
+        # Generate Learnosity initialization options
+        learnosity_init_options = self._generate_learnosity_init()          
+      
         print('selfdataßß', student_id)
 
         # Define the page HTML as a Jinja2 template
@@ -154,7 +155,7 @@ class LearnosityXBlock(XBlock):
 
         # Request parameters for the Items API
         request = {
-            'user_id': self.student_id,
+            'user_id': str(self.student_id),
             'activity_template_id': self.activity_id,
             'session_id': self.session_id,
             'type': 'submit_practice',
