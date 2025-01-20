@@ -59,9 +59,10 @@ class LearnosityXBlock(XBlock):
         Renders the Learnosity assessment using the Items API.
         """
         # Generate Learnosity initialization options
-        learnosity_init_options = self._generate_learnosity_init()            
+        learnosity_init_options = self._generate_learnosity_init()          
+        student_id = str(self.student_id)  
 
-        print('selfdataßß', self.student_id)
+        print('selfdataßß', student_id)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -69,7 +70,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>    
-                <h1>Student Data: {{ self.student_id }} xxxx</h1>    
+                <h1>Student Data: {{ student_id }} xxxx</h1>    
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
