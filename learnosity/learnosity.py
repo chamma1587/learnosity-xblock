@@ -82,32 +82,32 @@ class LearnosityXBlock(XBlock):
         return fragment
 
 
-    def studio_view(self, context):
-        # Render a custom form for the admin interface           
+    # def studio_view(self, context):
+    #     # Render a custom form for the admin interface           
 
-        html = """
-        <form class="xblock-studio-view">
-            <label for="activity_id">Activity Id:</label>
-            <input type="text" name="activity_id" value="{activity_id}" /><br/>
-            <label for="activity_name">activity_name:</label>
-            <input type="text" name="activity_name" value="{activity_name}" /><br/>
-            <button type="submit">Save</button>
-        </form>
-        """.format(activity_id=self.activity_id, activity_name=self.activity_name)
+    #     html = """
+    #     <form class="xblock-studio-view">
+    #         <label for="activity_id">Activity Id:</label>
+    #         <input type="text" name="activity_id" value="{activity_id}" /><br/>
+    #         <label for="activity_name">activity_name:</label>
+    #         <input type="text" name="activity_name" value="{activity_name}" /><br/>
+    #         <button type="submit">Save</button>
+    #     </form>
+    #     """.format(activity_id=self.activity_id, activity_name=self.activity_name)
 
-        frag = Fragment(html)
-        frag.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
-        frag.initialize_js('LearnosityXBlockStudio')
-        return frag
+    #     frag = Fragment(html)
+    #     frag.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
+    #     frag.initialize_js('LearnosityXBlockStudio')
+    #     return frag
 
-    @XBlock.json_handler
-    def save_studio_parameters(self, data, suffix=''):
-        """
-        Handler to save parameters from the Studio view.
-        """
-        self.activity_id = data.get('activity_id', self.activity_id)
-        self.activity_name = data.get('activity_name', self.activity_name)
-        return {"result": "success"}
+    # @XBlock.json_handler
+    # def save_studio_parameters(self, data, suffix=''):
+    #     """
+    #     Handler to save parameters from the Studio view.
+    #     """
+    #     self.activity_id = data.get('activity_id', self.activity_id)
+    #     self.activity_name = data.get('activity_name', self.activity_name)
+    #     return {"result": "success"}
 
 
 
