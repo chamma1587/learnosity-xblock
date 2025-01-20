@@ -80,37 +80,37 @@ class LearnosityXBlock(XBlock):
         fragment = Fragment(rendered_html)
         return fragment
 
-    def studio_view(self, context=None):
-        """
-        Studio view for course authors to configure the XBlock.
-        """
-        # HTML form for Studio configuration
-        html = """
-        <form class="xblock-studio-view" method="POST" action="#">
-            <label for="activity_id">Activity ID:</label>
-            <input type="text" name="activity_id" value="{self.activity_id}" required/><br/>
-            <small>Provide the Learnosity activity template ID (e.g., "activity_xyz").</small><br/>
-            <label for="activity_name">Activity Name:</label>
-            <input type="text" name="activity_name" value="{self.activity_name}" required/><br/>
-            <small>Provide a name for the activity.</small><br/>
-            <button type="submit">Save</button>
-        </form>
-        """
+    # def studio_view(self, context=None):
+    #     """
+    #     Studio view for course authors to configure the XBlock.
+    #     """
+    #     # HTML form for Studio configuration
+    #     html = """
+    #     <form class="xblock-studio-view" method="POST" action="#">
+    #         <label for="activity_id">Activity ID:</label>
+    #         <input type="text" name="activity_id" value="{self.activity_id}" required/><br/>
+    #         <small>Provide the Learnosity activity template ID (e.g., "activity_xyz").</small><br/>
+    #         <label for="activity_name">Activity Name:</label>
+    #         <input type="text" name="activity_name" value="{self.activity_name}" required/><br/>
+    #         <small>Provide a name for the activity.</small><br/>
+    #         <button type="submit">Save</button>
+    #     </form>
+    #     """
 
-        # Create Fragment for Studio view
-        fragment = Fragment(html)
-        fragment.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
-        fragment.initialize_js('LearnosityXBlockStudio')
-        return fragment
+    #     # Create Fragment for Studio view
+    #     fragment = Fragment(html)
+    #     fragment.add_javascript(RESOURCE_LOADER.load_unicode('static/js/src/learnosity-studio.js'))
+    #     fragment.initialize_js('LearnosityXBlockStudio')
+    #     return fragment
 
-    @XBlock.json_handler
-    def studio_submit(self, data, suffix=''):
-        """
-        Handler to save parameters from the Studio view.
-        """
-        self.activity_id = data.get('activity_id', self.activity_id)
-        self.activity_name = data.get('activity_name', self.activity_name)
-        return {"result": "success"}
+    # @XBlock.json_handler
+    # def studio_submit(self, data, suffix=''):
+    #     """
+    #     Handler to save parameters from the Studio view.
+    #     """
+    #     self.activity_id = data.get('activity_id', self.activity_id)
+    #     self.activity_name = data.get('activity_name', self.activity_name)
+    #     return {"result": "success"}
 
     def _generate_learnosity_init(self):
         """
