@@ -59,11 +59,13 @@ class LearnosityXBlock(XBlock):
         Renders the Learnosity assessment using the Items API.
         """
         student_id = str(self.student_id)  
+        course_id = str(self.course_id)  
 
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()          
       
         print('selfdataßß', student_id)
+        print('selfdataßßsssss', course_id)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -71,7 +73,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ name }}</h1>    
-                <h1>Student Data: {{ studentId }} xxxx</h1>    
+                <h1>Student Data: {{ studentId }} - {{courseId}}</h1>    
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -87,6 +89,7 @@ class LearnosityXBlock(XBlock):
         rendered_html = template.render(
             name='Learnosity Items',
             studentId=student_id,
+            courseId=course_id,
             generated_request=learnosity_init_options
         )
 
@@ -99,6 +102,10 @@ class LearnosityXBlock(XBlock):
     @property
     def student_id(self):
         return str(self.scope_ids.user_id)
+
+    @property
+    def course_id(self):
+        return str(self.scope_ids.usage_id)
 
 
     def studio_view(self, context):
