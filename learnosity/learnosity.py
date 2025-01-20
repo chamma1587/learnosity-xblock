@@ -59,23 +59,9 @@ class LearnosityXBlock(XBlock):
         Renders the Learnosity assessment using the Items API.
         """
         # Generate Learnosity initialization options
-        learnosity_init_options = self._generate_learnosity_init()     
+        learnosity_init_options = self._generate_learnosity_init()            
 
-        try:
-            user_service = self.runtime.service(self, 'user')
-            if user_service:
-                # Retrieve the username and course_id
-                userId = self.runtime.user_id  # Adjust if your runtime provides the actual username
-                courseId = str(self.scope_ids.usage_id.course_key)  # Extract the course ID
-
-                print('ddfdfdfdfdf', userId, courseId)
-
-            else:
-                raise RuntimeError("User service is not available.")
-        except NoSuchServiceError:
-            raise RuntimeError("The 'user' service was not provided.")
-
-        print('selfdataßß', userId)
+        print('selfdataßß', self.student_id)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -83,7 +69,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>    
-                <h1>Student Data: {{ userId }}</h1>    
+                <h1>Student Data: {{ self.student_id }} xxxx</h1>    
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
@@ -117,13 +103,8 @@ class LearnosityXBlock(XBlock):
             user_service = self.runtime.service(self, 'user')
             if user_service:
                 # Retrieve the username and course_id
-                username = self.runtime.user_id  # Adjust if your runtime provides the actual username
-                course_id = str(self.scope_ids.usage_id.course_key)  # Extract the course ID
-
-                print('ddfdfdfdfdf', username)
-                
-                # Generate the anonymous user ID
-                return user_service.get_anonymous_user_id(username=username, course_id=course_id)
+                user_id = self.runtime.user_id  # Adjust if your runtime provides the actual username
+                return user_id
             else:
                 raise RuntimeError("User service is not available.")
         except NoSuchServiceError:
@@ -133,7 +114,7 @@ class LearnosityXBlock(XBlock):
     def studio_view(self, context):
         # Render a custom form for the admin interface           
 
-        print('user_id_data', self.user_id)
+        print('student_id_data', self.student_id)
         html = """
         <form class="xblock-studio-view">
             <label for="activity_id">Activity Id:</label>
@@ -172,7 +153,7 @@ class LearnosityXBlock(XBlock):
 
         # Request parameters for the Items API
         request = {
-            'user_id': self.user_id,
+            'user_id': self.student_id,
             'activity_template_id': self.activity_id,
             'session_id': self.session_id,
             'type': 'submit_practice',
