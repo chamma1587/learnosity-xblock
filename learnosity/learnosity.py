@@ -50,7 +50,7 @@ class LearnosityXBlock(XBlock):
     
 
     def student_view(self, context=None):
-        
+
         """
         The primary view of the XBlock, shown to students.
         Renders the Learnosity assessment using the Items API.
@@ -64,6 +64,7 @@ class LearnosityXBlock(XBlock):
         <html>
             <body>
                 <h1>{{ self.activity_name }}</h1>    
+                <h1>Student Data: {{ self.user_info }}</h1>    
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library. -->
                 <script src="https://items.learnosity.com/?latest-lts"></script>
