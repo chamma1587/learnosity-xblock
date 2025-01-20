@@ -63,7 +63,7 @@ class LearnosityXBlock(XBlock):
 
         userId=self.student_id
 
-        print('selfdataßß', student_id)
+        print('selfdataßß', userId)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
