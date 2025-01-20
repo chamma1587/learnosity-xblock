@@ -60,7 +60,7 @@ class LearnosityXBlock(XBlock):
                 <h1>{{ activity_name }}</h1>
                 <div id="learnosity_assess"></div>
                 <!-- Load the Items API library -->
-                <script src="https://items.learnosity.com/?latest-lts"></script>
+                <script src="https://items.learnosity.com/"></script>
                 <!-- Initiate Items API -->
                 <script>
                     var learnosityInitOptions = {{ generated_request | safe }};
