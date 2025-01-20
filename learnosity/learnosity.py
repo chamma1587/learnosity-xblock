@@ -85,7 +85,7 @@ class LearnosityXBlock(XBlock):
         Studio view for course authors to configure the XBlock.
         """
         # HTML form for Studio configuration
-        html = f"""
+        html = """
         <form class="xblock-studio-view" method="POST" action="#">
             <label for="activity_id">Activity ID:</label>
             <input type="text" name="activity_id" value="{self.activity_id}" required/><br/>
