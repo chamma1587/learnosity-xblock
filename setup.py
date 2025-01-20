@@ -24,11 +24,11 @@ def package_data(pkg, roots):
 
 setup(
     name='learnosity-xblock',
-    version='0.1',
+    version='1.0',
     description='learnosity XBlock', 
     license='UNKNOWN', 
     packages=[
-        'learnosityx',
+        'learnosity',
     ],
     install_requires=[
         'XBlock',
@@ -36,8 +36,8 @@ setup(
     ],
     entry_points={
         'xblock.v1': [
-            'learnosityx = learnosity:LearnosityXBlock',
+            'learnosity = learnosity:LearnosityXBlock',
         ]
     },
-    package_data=package_data("learnosityx", ["static", "public"]),
+    package_data=package_data("learnosity", ["static", "public"]),
 )
