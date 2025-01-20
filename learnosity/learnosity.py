@@ -58,7 +58,9 @@ class LearnosityXBlock(XBlock):
         # Generate Learnosity initialization options
         learnosity_init_options = self._generate_learnosity_init()     
 
-       print('self dataßß', self)
+        user_id=self.user_id
+
+        print('selfdataßß', user_id)
 
         # Define the page HTML as a Jinja2 template
         template = Template("""
@@ -89,6 +91,16 @@ class LearnosityXBlock(XBlock):
         fragment.add_javascript(self._load_learnosity_script())
         fragment.initialize_js('LearnosityXBlock')
         return fragment
+
+    @property
+    def user_id(self):
+        """
+        Returns the opaque anonymous_student_id for the current user.
+        """
+        user_id = self.runtime.anonymous_student_id
+        if user_id is None:
+            raise LtiError(self.ugettext("Could not get user id for current request"))
+        return str(urllib.parse.quote(user_id))
 
 
     def studio_view(self, context):
