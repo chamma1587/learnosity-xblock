@@ -51,7 +51,7 @@ class LearnosityXBlock(XBlock):
 
     def student_view(self, context=None):
 
-        student_data = context.Chamara
+        student_data = context.username
         print('student_name', student_data, Scope)
         """
         The primary view of the XBlock, shown to students.
