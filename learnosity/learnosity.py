@@ -108,7 +108,7 @@ class LearnosityXBlock(XBlock):
                 username = self.runtime.user_id  # Adjust if your runtime provides the actual username
                 course_id = str(self.scope_ids.usage_id.course_key)  # Extract the course ID
 
-                 print(f"Username: {username}, Course ID: {course_id}")
+                print('ddfdfdfdfdf', username)
                 
                 # Generate the anonymous user ID
                 return user_service.get_anonymous_user_id(username=username, course_id=course_id)
