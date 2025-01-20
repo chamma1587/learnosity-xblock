@@ -98,7 +98,9 @@ class LearnosityXBlock(XBlock):
         """
         Returns the opaque anonymous_student_id for the current user.
         """
-        user_id = self.runtime.anonymous_student_id
+        user_service = self.runtime.service(self, 'user')
+        user_id = user_service.get_anonymous_user_id()
+
         if user_id is None:
             raise LtiError(self.ugettext("Could not get user id for current request"))
         return str(urllib.parse.quote(user_id))
