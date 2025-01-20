@@ -18,7 +18,7 @@ function LearnosityXBlockStudio(runtime, element) {
         };
 
         // Save the parameters via the runtime's handler
-        const handlerUrl = runtime.handlerUrl(element, 'studio_submit');
+        const handlerUrl = runtime.handlerUrl(element, 'save_studio_parameters');
         $.post(handlerUrl, JSON.stringify(data))
             .done(function (response) {
                 if (response.result === "success") {
