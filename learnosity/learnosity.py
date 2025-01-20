@@ -5,6 +5,7 @@ from learnosity_sdk.request import Init
 from learnosity_sdk.utils import Uuid
 from web_fragments.fragment import Fragment
 import urllib.parse
+from xblock.exceptions import NoSuchServiceError
 
 try:
     from xblock.utils.resources import ResourceLoader  # pylint: disable=ungrouped-imports
@@ -99,12 +100,20 @@ class LearnosityXBlock(XBlock):
         """
         Returns the opaque anonymous_student_id for the current user.
         """
-        user_service = self.runtime.service(self, 'user')
-        user_id = user_service.get_anonymous_user_id()
-
-        if user_id is None:
-            raise LtiError(self.ugettext("Could not get user id for current request"))
-        return str(urllib.parse.quote(user_id))
+       try:
+            # Access the user service
+            user_service = self.runtime.service(self, 'user')
+            if user_service:
+                # Retrieve the username and course_id
+                username = self.runtime.user_id  # Adjust if your runtime provides the actual username
+                course_id = str(self.scope_ids.usage_id.course_key)  # Extract the course ID
+                
+                # Generate the anonymous user ID
+                return user_service.get_anonymous_user_id(username=username, course_id=course_id)
+            else:
+                raise RuntimeError("User service is not available.")
+        except NoSuchServiceError:
+            raise RuntimeError("The 'user' service was not provided.")
 
 
     def studio_view(self, context):
