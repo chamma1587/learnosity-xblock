@@ -97,20 +97,7 @@ class LearnosityXBlock(XBlock):
 
     @property
     def student_id(self):
-        """
-        Returns the opaque anonymous_student_id for the current user.
-        """
-        try:
-            # Access the user service
-            user_service = self.runtime.service(self, 'user')
-            if user_service:
-                # Retrieve the username and course_id
-                user_id = self.runtime.user_id  # Adjust if your runtime provides the actual username
-                return user_id
-            else:
-                raise RuntimeError("User service is not available.")
-        except NoSuchServiceError:
-            raise RuntimeError("The 'user' service was not provided.")
+        return str(self.scope_ids.user_id)
 
 
     def studio_view(self, context):
